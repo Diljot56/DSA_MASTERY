@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        vector<bool> dp(s.length() + 1, false);
+        dp[s.length()] = true;
+        // unordered_set<string> us;
+        // for(string str : wordDict){
+        //     us.insert(str);
+        // }
+        for(int i = s.length() - 1; i >= 0; i--){
+            for(const auto& w : wordDict){
+                if(i + w.length() <= s.length() && s.substr(i, w.length()) == w){
+                    dp[i] = dp[i + w.length()];
+                }
+                if(dp[i])break;
+            }
+        }
+        return dp[0];
+    }
+};
